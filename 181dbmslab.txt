@@ -1,0 +1,192 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Mon Jul 27 10:22:55 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A181@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student10
+  2  (
+  3  regno varchar2(20),
+  4  name char(30),
+  5  dob date,
+  6  coursename char(10),
+  7  year number,
+  8  dept char(10)
+  9  );
+
+Table created.
+
+SQL> desc student10
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ NAME                                               CHAR(30)
+ DOB                                                DATE
+ COURSENAME                                         CHAR(10)
+ YEAR                                               NUMBER
+ DEPT                                               CHAR(10)
+
+SQL> create table student1111 as select * from student10;
+
+Table created.
+
+SQL> desc student1111
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ NAME                                               CHAR(30)
+ DOB                                                DATE
+ COURSENAME                                         CHAR(10)
+ YEAR                                               NUMBER
+ DEPT                                               CHAR(10)
+
+SQL> create table student2222 as select name,dob,year from  student10;
+
+Table created.
+
+SQL> desc student2222
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                               CHAR(30)
+ DOB                                                DATE
+ YEAR                                               NUMBER
+
+SQL> insert into student10 values ('11249a999','sasi','22-july-06','BE',3,'CSE');
+
+1 row created.
+
+SQL> select * from student10 ;
+
+REGNO                NAME                           DOB       COURSENAME
+-------------------- ------------------------------ --------- ----------
+      YEAR DEPT
+---------- ----------
+11249a999            sasi                           22-JUL-06 BE
+         3 CSE
+
+
+SQL> create table student4444 as select * from student10 where (1>2);
+
+Table created.
+
+SQL> select * from student4444 ;
+
+no rows selected
+
+SQL> create table student5555 as select * from student10 ;
+
+Table created.
+
+SQL> select * from student5555 ;
+
+REGNO                NAME                           DOB       COURSENAME
+-------------------- ------------------------------ --------- ----------
+      YEAR DEPT
+---------- ----------
+11249a999            sasi                           22-JUL-06 BE
+         3 CSE
+
+
+SQL> create table student6666 as select regno,name,year from  student10;
+
+Table created.
+
+SQL> select * from student6666 ;
+
+REGNO                NAME                                 YEAR
+-------------------- ------------------------------ ----------
+11249a999            sasi                                    3
+
+SQL> alter table student10 modify name char(50);
+
+Table altered.
+
+SQL> select * from student10 ;
+
+REGNO                NAME
+-------------------- --------------------------------------------------
+DOB       COURSENAME       YEAR DEPT
+--------- ---------- ---------- ----------
+11249a999            sasi
+22-JUL-06 BE                  3 CSE
+
+SQL>  drop table student6666;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENTTABLE                   TABLE
+STUDENT5555                    TABLE
+STUDENT4444                    TABLE
+STUDENT333                     TABLE
+STUDENT3                       TABLE
+STUDENT2222                    TABLE
+STUDENT123                     TABLE
+STUDENT1111                    TABLE
+STUDENT10                      TABLE
+STUDENT1                       TABLE
+STUDENT00                      TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT                        TABLE
+STU                            TABLE
+BIN$+3C7qXnXSqmS0+jkU3iY8A==$0 TABLE
+
+14 rows selected.
+
+SQL> delete from student123
+  2
+SQL> delete from student123;
+
+0 rows deleted.
+
+SQL> insert into student4444(regno,name,year) values('11249a123','harii',3);
+
+1 row created.
+
+SQL> select * from  student4444;
+
+REGNO                NAME                           DOB       COURSENAME
+-------------------- ------------------------------ --------- ----------
+      YEAR DEPT
+---------- ----------
+11249a123            harii
+         3
+
+SQL> rename student00 to student0000000;
+
+Table renamed.
+
+SQL> insert into student10 values('&regno','&name','&dob','&coursename',&year,'&dept');
+Enter value for regno: 11249a158
+Enter value for name: v
+Enter value for dob: 13-july-07
+Enter value for coursename: be
+Enter value for year: 3
+Enter value for dept: cse
+old   1: insert into student10 values('&regno','&name','&dob','&coursename',&year,'&dept')
+new   1: insert into student10 values('11249a158','v','13-july-07','be',3,'cse')
+
+1 row created.
+
+SQL> select * from student10;
+
+REGNO                NAME
+-------------------- --------------------------------------------------
+DOB       COURSENAME       YEAR DEPT
+--------- ---------- ---------- ----------
+11249a999            sasi
+22-JUL-06 BE                  3 CSE
+
+11249a158            v
+13-JUL-07 be                  3 cse
+
