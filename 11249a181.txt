@@ -1,0 +1,153 @@
+ SQL*Plus: Release 11.2.0.1.0 Production on Mon Aug 3 01:27:18 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A181@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENTTABLE                   TABLE
+STUDENT5555                    TABLE
+STUDENT4444                    TABLE
+STUDENT333                     TABLE
+STUDENT3                       TABLE
+STUDENT2222                    TABLE
+STUDENT123                     TABLE
+STUDENT1111                    TABLE
+STUDENT10                      TABLE
+STUDENT1                       TABLE
+STUDENT0000000                 TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT                        TABLE
+STU                            TABLE
+EMPLOYEE9999                   TABLE
+
+14 rows selected.
+
+SQL> create table student6
+  2  (
+  3  regno number(8) primary key,
+  4  name varchar2(8),
+  5  bod date,
+  6  dept char(8));
+
+Table created.
+
+SQL> desc student6
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                     NOT NULL NUMBER(8)
+ NAME                                               VARCHAR2(8)
+ BOD                                                DATE
+ DEPT                                               CHAR(8)
+
+SQL> create table dept
+  2  (
+  3  deptno number(4) primary key,
+  4  deptname char(10)
+  5  );
+
+Table created.
+
+SQL> create table student7
+  2  (
+  3  regno number(8) primary key,
+  4  name varchar2(8),
+  5  deptno number(2) references dept(deptno)
+  6  );
+
+Table created.
+
+SQL> insert into dept values(1,'cse');
+
+1 row created.
+
+SQL> insert into dept values(2,'ECE');
+
+1 row created.
+
+SQL> insert into student7 values(1111,'siri',2);
+
+1 row created.
+
+SQL> select * from dept;
+
+    DEPTNO DEPTNAME
+---------- ----------
+         1 cse
+         2 ECE
+
+SQL> select * from student7;
+
+     REGNO NAME         DEPTNO
+---------- -------- ----------
+      1111 siri              2
+
+SQL> create table deptment(
+  2  deptno(4) number,
+  3  d
+  4
+SQL> create table deptment
+  2  (
+  3  deptno number(6),
+  4  deptname varchar2(9));
+
+Table created.
+
+SQL> desc deptment
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                             NUMBER(6)
+ DEPTNAME                                           VARCHAR2(9)
+
+SQL> create table studenttt
+  2        (
+  3            regno number(30) primary key,
+  4            email_address varchar2(30) unique,
+  5             name varchar2(40),
+  6           age number(2) check (age>=18),
+  7           gender char default 'F',
+  8            deptno number(6) references dept(deptno)
+  9      );
+
+Table created.
+
+SQL> insert into deptment  values(1,'cse');
+
+1 row created.
+
+SQL> insert into deptment values(2,'it');
+
+1 row created.
+
+SQL> insert into deptment values(3,'ece');
+
+1 row created.
+
+SQL> insert into studenttt values(1,'112@gmail.com','viswa',20,'m',1);
+
+1 row created.
+
+SQL> insert into studenttt values(2,'1172@gmail.com','vishalakshi',20,'',1);
+
+1 row created.
+
+SQL> select * from studenttt;
+
+     REGNO EMAIL_ADDRESS
+---------- ------------------------------
+NAME                                            AGE G     DEPTNO
+---------------------------------------- ---------- - ----------
+         1 112@gmail.com
+viswa                                            20 m          1
+
+         2 1172@gmail.com
+vishalakshi                                      20  f          1
