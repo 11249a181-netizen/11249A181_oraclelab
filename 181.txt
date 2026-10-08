@@ -1,0 +1,101 @@
+SQL*Plus: Release 11.2.0.1.0 Production on Thu Oct 8 16:18:48 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A181@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENTTT                      TABLE
+STUDENTTABLE                   TABLE
+STUDENT7                       TABLE
+STUDENT6                       TABLE
+STUDENT5555                    TABLE
+STUDENT4444                    TABLE
+STUDENT333                     TABLE
+STUDENT3                       TABLE
+STUDENT2222                    TABLE
+STUDENT123                     TABLE
+STUDENT1111                    TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT10                      TABLE
+STUDENT1                       TABLE
+STUDENT0000000                 TABLE
+STUDENT                        TABLE
+STU                            TABLE
+EMPLOYEE9999                   TABLE
+DEPTMENT                       TABLE
+DEPT                           TABLE
+
+19 rows selected.
+
+SQL> grant select on Studenttt to scott;
+
+Grant succeeded.
+
+SQL> grant select, update,insert on student123 to scott;
+
+Grant succeeded.
+
+SQL> revoke select on studenttt from scott;
+
+Revoke succeeded.
+
+SQL> desc dept
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(4)
+ DEPTNAME                                           CHAR(10)
+
+SQL> insert into dept values(1234,'it');
+
+1 row created.
+
+SQL> savepoint sp1;
+
+Savepoint created.
+
+SQL> insert into dept values(1114,'eee');
+
+1 row created.
+
+SQL> rollback to sp1;
+
+Rollback complete.
+
+SQL> select * from dept;
+
+    DEPTNO DEPTNAME
+---------- ----------
+      1234 it
+         1 cse
+         2 ECE
+
+SQL> insert into dept values(1114,'eee');
+
+1 row created.
+
+SQL> commit
+  2  rollback;
+rollback
+*
+ERROR at line 2:
+ORA-02185: a token other than WORK follows COMMIT
+
+
+SQL> select * from dept;
+
+    DEPTNO DEPTNAME
+---------- ----------
+      1234 it
+      1114 eee
+         1 cse
+         2 ECE
