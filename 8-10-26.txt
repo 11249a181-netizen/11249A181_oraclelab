@@ -1,0 +1,133 @@
+
+SQL> create table stunet1(
+  2  id number,
+  3  name varchar2(20),
+  4  marks number(3),
+  5  dept varchar2(10)
+  6  );
+
+Table created.
+
+SQL> insert into stunet1 values(1,'sita',67,'cse');
+
+1 row created.
+
+SQL> insert into stunet1 values(21,'githa',67,'eee');
+
+1 row created.
+
+SQL> insert into stunet1 values(3,'ravi',88,'cee');
+
+1 row created.
+
+
+SQL> create table alumni(
+  2  name varchar2(30)
+  3  );
+
+Table created.
+
+SQL> insert into alumni values('sita');
+
+1 row created.
+
+SQL> insert into alumni values('ravi');
+
+1 row created.
+
+SQL> select * from stunet1 where marks>ANY (SELECT MARKS FROM STUNET1 WHERE DEPT ='eee');
+
+        ID NAME                      MARKS DEPT
+---------- -------------------- ---------- ----------
+         3 ravi                         88 cee
+
+SQL> select * from stunet1;
+
+        ID NAME                      MARKS DEPT
+---------- -------------------- ---------- ----------
+         1 sita                         67 cse
+        21 githa                        67 eee
+         3 ravi                         88 cee
+
+SQL> select * from stunet1 where marks>ALL (SELECT MARKS FROM STUNET1 WHERE DEPT ='eee');
+
+        ID NAME                      MARKS DEPT
+---------- -------------------- ---------- ----------
+         3 ravi                         88 cee
+
+
+SQL> SELECT NAME FROM STUNET1 S WHERE EXISTS ( SELECT *  FROM ALUMNI A WHERE S.NAME=A.NAME);
+
+NAME
+--------------------
+sita
+ravi
+
+SQL> SELECT NAME FROM STUNET1 S WHERE NOT EXISTS ( SELECT *  FROM ALUMNI A WHERE S.NAME=A.NAME);
+
+NAME
+--------------------
+githa
+
+SQL> SELECT COUNT(*) FROM STUNET1;
+
+  COUNT(*)
+----------
+         3
+
+SQL> SELECT SUM(MARKS) FROM STUNET1;
+
+SUM(MARKS)
+----------
+       222
+
+SQL> SELECT AVG(MARKS) FROM STUNET1;
+
+AVG(MARKS)
+----------
+        74
+
+SQL> SELECT MIN(MARKS) FROM STUNET1;
+
+MIN(MARKS)
+----------
+        67
+
+SQL> SELECT MAX(MARKS) FROM STUNET1;
+
+MAX(MARKS)
+----------
+        88
+
+
+
+
+SQL> SELECT COUNT(*) FROM STUNET1 GROUP BY DEPt;
+
+  COUNT(*)
+----------
+         1
+         1
+         1
+
+SQL> SELECT DEPT,COUNT(*) FROM STUNET1 GROUP BY DEPt;
+
+DEPT         COUNT(*)
+---------- ----------
+cse                 1
+eee                 1
+cee                 1
+
+
+
+
+SQL> SELECT DEPT,COUNT(*) FROM STUNET1 GROUP BY DEPt HAVING AVG(MARKS)>70;
+
+DEPT         COUNT(*)
+---------- ----------
+cee                 1
+
+SQL> SELECT DEPT,COUNT(*) FROM STUNET1 GROUP BY DEPt HAVING AVG(MARKS)>70;
+DEPT         COUNT(*)
+---------- ----------
+cee                 1
